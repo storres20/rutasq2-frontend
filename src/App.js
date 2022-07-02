@@ -23,6 +23,7 @@ function App() {
   
   const obtenerDatos = () => {
     // GET request for remote image in node.js
+    //axios.get('http://localhost:8080/api/products')
     axios.get('http://localhost:8080/api/products')
       .then(res => {
         //console.log(res.data);
@@ -33,6 +34,7 @@ function App() {
   
   const obtenerCategorias = () => {
     // GET request for remote image in node.js
+    //axios.get('http://localhost:8080/api/categories')
     axios.get('http://localhost:8080/api/categories')
       .then(res => {
         //console.log(res.data);
