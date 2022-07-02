@@ -1,9 +1,9 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
 }
 
@@ -14,13 +14,16 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  /* justify-content: center; */
+  font-size: calc(10px + 1vmin);
   color: white;
 }
 
@@ -34,5 +37,24 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.inputLar {
+  width: 300px !important;
+}
+
+.title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+
+/* Teléfonos */
+@media only screen and (max-width: 575px){
+  
+  .flexCol {
+    display: flex;
+    flex-direction: column;
   }
 }
