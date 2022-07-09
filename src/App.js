@@ -94,7 +94,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="title">
-          Listado de Paginas del Aplicativo Web - Q2
+          Resumen del Listado de Paginas
         </h1>
         
         <Form>
