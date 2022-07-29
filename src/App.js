@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './loading.css'
 
 import {useState, useEffect, useRef} from 'react'
 import axios from 'axios';
@@ -17,25 +18,28 @@ function App() {
   const [rutas, setRutas] = useState([]);
   const [allData, setAllData] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [loading, setLoading] = useState(false) // loading
+  const [noData, setNoData] = useState(false) // no data
   
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   
   const obtenerDatos = () => {
     // GET request for remote image in node.js
-    //axios.get('http://localhost:8080/api/products')
-    axios.get('https://rutasq2-back.vercel.app/api/products')
+    axios.get('http://localhost:8080/api/products')
+    //axios.get('https://rutasq2-back.vercel.app/api/products')
       .then(res => {
         //console.log(res.data);
         setRutas(res.data)
         setAllData(res.data)
+        setLoading(true) // loading
       })
   }
   
   const obtenerCategorias = () => {
     // GET request for remote image in node.js
-    //axios.get('http://localhost:8080/api/categories')
-    axios.get('https://rutasq2-back.vercel.app/api/categories')
+    axios.get('http://localhost:8080/api/categories')
+    //axios.get('https://rutasq2-back.vercel.app/api/categories')
       .then(res => {
         //console.log(res.data);
         setCategorias(res.data)
@@ -60,9 +64,17 @@ function App() {
 
       inputRef2.current.value = "--Todos--";
       setRutas(results);
+      
+      // NoData
+      if (results.length === 0) {
+        setNoData(true)
+      }
+      else setNoData(false)
+      
 
     } else {
       setRutas(allData);
+      setNoData(false) // Data
       // If the text field is empty, show all users
     }
 
@@ -81,9 +93,11 @@ function App() {
 
       inputRef.current.value = "";
       setRutas(results);
+      setNoData(false) // data
 
     } else {
       setRutas(allData);
+      setNoData(false) // data
       // If the text field is empty, show all users
     }
 
@@ -132,44 +146,60 @@ function App() {
             </Row>
           </Container>
         </Form>
-
-        <Card>
-          <Card.Body>
         
-            <Table striped bordered hover size="md" >
-              <thead>
-                <tr>
-                  <th className='text-center'>N°</th>
-                  <th>Nombre de Requerimiento</th>
-                  <th className='text-center'>Categoria</th>
-                  <th className='text-center'>Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rutas.map((item,index) => (
-                  <tr key={item.id}>
-                    <td className='text-center'>{index+1}</td>
-                    <td>{item.nombre}</td>
-                    <td className='text-center'>{item.categoria}</td>
-                    <td className='text-center'>
-                    <a
-                      className='btn btn-primary'
-                      target="_blank"
-                      rel="noreferrer"
-                      href={item.link}
-                    >
-                      Ver
-                    </a>
-                    </td>
+        {loading ? (
+        
+          <Card>
+            <Card.Body>
+          
+              <Table striped bordered hover size="md" >
+                <thead>
+                  <tr>
+                    <th className='text-center'>N°</th>
+                    <th>Nombre de Requerimiento</th>
+                    <th className='text-center'>Categoria</th>
+                    <th className='text-center'>Link</th>
                   </tr>
-                ))}
-                
-                
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {rutas.map((item,index) => (
+                    <tr key={item.id}>
+                      <td className='text-center'>{index+1}</td>
+                      <td>{item.nombre}</td>
+                      <td className='text-center'>{item.categoria}</td>
+                      <td className='text-center'>
+                      <a
+                        className='btn btn-primary'
+                        target="_blank"
+                        rel="noreferrer"
+                        href={item.link}
+                      >
+                        Ver
+                      </a>
+                      </td>
+                    </tr>
+                  ))}
+                  
+                  
+                </tbody>
+              </Table>
+              
+              {noData ? (
+                <h3 className="text-center text-black mt-5">No Data to Show...</h3>
+              ) : ("")}
+          
+            </Card.Body>
+          </Card>
         
-          </Card.Body>
-        </Card>
+        ) : (
+        
+          <div className="flexLoad">
+            <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+          </div>
+        
+        )}
+
+        
         
       </header>
     </div>
